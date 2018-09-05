@@ -83,10 +83,6 @@ class MainAppDelegate: ApplicationDelegate {
 }
 
 func start() {
-    let red = Color.red
-    var blue = Color.green
-    blue.alpha = 0.1
-    let blended = red.blend(withColor: blue).toCGColor()
     let application = Application.shared
     application.mainScreen = NokScreen()
     let mainAppDelegate = MainAppDelegate()
