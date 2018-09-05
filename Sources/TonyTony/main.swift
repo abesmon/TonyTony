@@ -20,10 +20,13 @@ class NokScreen: Screen {
         guard let rst = gpios[.P26],
             let dc = gpios[.P22],
             let cs = gpios[.P24],
-            let spi = SwiftyGPIO.hardwareSPIs(for: .OrangePiZero)?.first
+            let mosi = gpios[.P19],
+            let miso = gpios[.P21],
+            let clk = gpios[.P23]
             else {
                 print("failed to get some of variables")
                 return nil }
+        let spi = VirtualSPI(mosiGPIO: mosi, misoGPIO: miso, clockGPIO: clk, csGPIO: cs)
         self.hardwDisplay = PCD8544(spi: spi, dc: dc, rst: rst, cs: cs)
     }
     
