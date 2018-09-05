@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Darwin.C
 
 private let WIDTH = 12
 private let HEIGHT = 10
