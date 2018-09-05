@@ -17,12 +17,12 @@ class NokScreen: Screen {
     private let hardwDisplay: PCD8544
     init?() {
         let gpios = SwiftyGPIO.GPIOs(for: .OrangePiZero)
-        guard let rst = gpios[.P26],
-            let dc = gpios[.P22],
-            let cs = gpios[.P24],
-            let mosi = gpios[.P19],
-            let miso = gpios[.P21],
-            let clk = gpios[.P23]
+        guard let rst = gpios[.P7],
+            let dc = gpios[.P25],
+            let cs = gpios[.P8],
+            let mosi = gpios[.P10],
+            let miso = gpios[.P9],
+            let clk = gpios[.P11]
             else {
                 print("failed to get some of variables")
                 return nil }
