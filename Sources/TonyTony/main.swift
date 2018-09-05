@@ -21,7 +21,9 @@ class NokScreen: Screen {
             let dc = gpios[.P22],
             let cs = gpios[.P24],
             let spi = SwiftyGPIO.hardwareSPIs(for: .OrangePiZero)?.first
-            else { return nil }
+            else {
+                print("failed to get some of variables")
+                return nil }
         self.hardwDisplay = PCD8544(spi: spi, dc: dc, rst: rst, cs: cs)
     }
     
@@ -74,6 +76,7 @@ class FooViewController: ViewController {
 
 class MainAppDelegate: ApplicationDelegate {
     func applicationStartedMainLoop(_ application: Application) {
+        print("application did runed")
         let redView = View(frame: Rect(origin: .zero, size: Size(width: 9, height: 9)))
         redView.backgroundColor = .red
         
