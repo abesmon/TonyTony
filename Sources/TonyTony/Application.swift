@@ -15,12 +15,21 @@ protocol ApplicationDelegate: class {
     func applicationStartedMainLoop(_ application: Application)
 }
 
+private var sharedApplication: Application?
 class Application {
-    static let shared = Application()
+    static var shared: Application {
+        guard let shared = sharedApplication else {
+            sharedApplication = Application()
+            return sharedApplication!
+        }
+        return shared
+    }
     
     private var eventsStack = [ApplicationEvent]()
 
-    var keyWindow: Window?
+    var mainScreen: Screen? = ConsoleScreen()
+    var rootViewController: ViewController?
+    private(set) var mainLoopRunDate: Date?
     weak var delegate: ApplicationDelegate!
     
     func sendEvent(_ event: ApplicationEvent) {
@@ -28,11 +37,13 @@ class Application {
     }
     
     func runMainLoop() {
+        mainLoopRunDate = Date()
         delegate.applicationStartedMainLoop(self)
         while true {
             while let lastEvent = eventsStack.popLast() {
                 lastEvent.proceed()
             }
+            rootViewController?.update()
         }
     }
 }

@@ -7,34 +7,6 @@
 
 import Foundation
 
-class ViewController {
-    var view: View!
-    
-    init() {
-        self.view = View()
-        viewDidLoad()
-    }
-    
-    func viewDidLoad() {}
-}
-
-class View {
-    var frame: Rect
-    
-    init(frame: Rect) {
-        self.frame = frame
-    }
-    
-    convenience init() {
-        self.init(frame: .zero)
-    }
-
-    func draw() {
-        guard let screenBuffer = Application.shared.keyWindow?.screen.getCurrentBuffer() else { return }
-        screenBuffer
-    }
-}
-
 class Window {
     var rootViewController: ViewController?
     var screen: Screen
