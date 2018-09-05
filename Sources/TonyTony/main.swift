@@ -89,8 +89,28 @@ class MainAppDelegate: ApplicationDelegate {
 }
 
 func start() {
+    func test() {
+        let gpios = SwiftyGPIO.GPIOs(for: .OrangePiZero)
+        guard let rst = gpios[.P7],
+            let dc = gpios[.P25],
+            let cs = gpios[.P8],
+            let mosi = gpios[.P10],
+            let miso = gpios[.P9],
+            let clk = gpios[.P11]
+            else {
+                print("failed to get some of variables while test")
+                return
+        }
+        let spi = VirtualSPI(mosiGPIO: mosi, misoGPIO: miso, clockGPIO: clk, csGPIO: cs)
+        let hardwDisplay = PCD8544(spi: spi, dc: dc, rst: rst, cs: cs)
+        hardwDisplay.draw(text: "test", x: 0, y: 0)
+        hardwDisplay.display()
+    }
+    test()
+    
     let application = Application.shared
-    application.mainScreen = NokScreen()
+    let screen = NokScreen()
+    application.mainScreen = screen
     let mainAppDelegate = MainAppDelegate()
     application.delegate = mainAppDelegate
     application.runMainLoop()
